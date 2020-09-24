@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom';
-import { Modal, Button, Alert } from 'antd';
+import { Modal, Button, message } from 'antd';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
 
@@ -9,13 +9,9 @@ function ShowModal({ visible, showModal, setCurrentUser }) {
   const history = useHistory()
   const [showLogin, setShowLogin] = useState(true)
   const [details, setDetails] = useState({})
-  const [alertMessage, setAlertMessage] = useState(null)
 
   const toggleForm = () => {
     setShowLogin(!showLogin)
-  }
-  const onCloseAlert = () => {
-    setAlertMessage(null)
   }
   const handleSubmit = () => {
     if (!showLogin){
@@ -30,13 +26,9 @@ function ShowModal({ visible, showModal, setCurrentUser }) {
         }
       })
       .then(result => {
-        console.log(result.data)
         setDetails({})
         toggleForm()
-        setAlertMessage({
-          text:result.data.message,
-          type:'success'
-        })
+        message.success(result.data.message)
       })
       .catch(error => {
         console.log(error)
@@ -52,7 +44,6 @@ function ShowModal({ visible, showModal, setCurrentUser }) {
         }
       })
       .then(result => {
-        console.log(result.data)
         setDetails({})
         showModal()
         setCurrentUser(result.data.user)
@@ -78,7 +69,6 @@ function ShowModal({ visible, showModal, setCurrentUser }) {
       <Modal
         title={showLogin ? "Sign In" : "Sign Up"}
         visible={visible}
-        onOk={handleSubmit}
         onCancel={showModal}
         footer={[
           <Button key="toggle" onClick={toggleForm}>
@@ -89,17 +79,6 @@ function ShowModal({ visible, showModal, setCurrentUser }) {
           </Button>,
         ]}
       >
-        {
-          alertMessage ? 
-          <Alert
-            message={alertMessage.text}
-            type={alertMessage.type}
-            closable
-            onClose={onCloseAlert}
-            style={{marginBottom:'10px'}}
-          />
-          : null
-        }
         {
           showLogin ? 
             <SignInForm handleInput={handleInput}/>

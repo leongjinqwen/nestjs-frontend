@@ -1,8 +1,8 @@
 import React from 'react'
-import { Upload, message, Button } from 'antd';
+import { Upload, message, Button, Modal } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
-function UploadPage () {
+function UploadModal ({showUpload,uploadVisible}) {
   const props = {
     name: 'file',
     action: 'http://localhost:5000/api/v1/images/upload', // endpoint to upload user images
@@ -17,17 +17,30 @@ function UploadPage () {
     }
     if (info.file.status === 'done') {
       message.success(`${info.file.name} file uploaded successfully`);
+      showUpload()
     } else if (info.file.status === 'error') {
       message.error(`${info.file.name} file upload failed.`);
+      showUpload()
     }
   }
   return (
-    <Upload 
-      {...props}
-      onChange={handleChange}
+    <Modal
+      title="Upload Image"
+      visible={uploadVisible}
+      onCancel={showUpload}
+      footer={[
+        <Button key="cancel" type="primary" onClick={showUpload}>
+          Cancel
+        </Button>,
+      ]}
     >
-      <Button icon={<UploadOutlined />}>Click to Upload</Button>
-    </Upload>
+      <Upload 
+        {...props}
+        onChange={handleChange}
+      >
+        <Button icon={<UploadOutlined />}>Click to Upload</Button>
+      </Upload>
+    </Modal>
   )
 }
-export default UploadPage;
+export default UploadModal;

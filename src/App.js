@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage';
 import NavBar from './components/NavBar';
 import { Layout } from 'antd';
 import ProfilePage from './pages/ProfilePage';
-import UploadPage from './pages/UploadPage';
+import UploadPage from './components/UploadModal';
 
 const { Content, Sider } = Layout;
 
@@ -24,7 +24,6 @@ function App() {
               <HomePage currentUser={currentUser} />
             </Route>
             <Route path="/users/:username" component={() => <ProfilePage currentUser={currentUser} />} />
-            <Route path="/upload" component={() => <UploadPage />} />
           </Switch>
         </Content>
       </Layout>

@@ -3,9 +3,11 @@ import { Menu } from 'antd';
 import { UploadOutlined, AppstoreOutlined, UserOutlined, LogoutOutlined, LoginOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 import ShowModal from './Modal';
+import UploadModal from './UploadModal';
 
 function NavBar ({ currentUser, setCurrentUser }) {
   const history = useHistory()
+  const [uploadVisible, setUploadVisible] = useState(false)
   const [visible, setVisible] = useState(false)
   const [current, setCurrent] = useState(null)
   
@@ -13,10 +15,17 @@ function NavBar ({ currentUser, setCurrentUser }) {
     setVisible(!visible)
   };
 
+  const showUpload = () => {
+    setUploadVisible(!uploadVisible)
+  };
+
   const handleClick = e => {
     setCurrent(e.key)
     if (e.key === 'item5'){
       showModal()
+    }
+    if (e.key === 'item2'){
+      showUpload()
     }
   };
   const handleLogout = () => {
@@ -35,7 +44,7 @@ function NavBar ({ currentUser, setCurrentUser }) {
         mode="inline"
       >
         <Menu.Item key='item1' icon={<AppstoreOutlined />} onClick={()=>history.push('/')} >Home</Menu.Item>
-        <Menu.Item key='item2' icon={<UploadOutlined />} onClick={()=>history.push('/upload')} >Upload</Menu.Item>
+        <Menu.Item key='item2' icon={<UploadOutlined />} >Upload</Menu.Item>
         {
           currentUser ? 
           <>
@@ -47,6 +56,7 @@ function NavBar ({ currentUser, setCurrentUser }) {
         }
       </Menu>
       <ShowModal showModal={showModal} visible={visible} setCurrentUser={setCurrentUser} />
+      <UploadModal showUpload={showUpload} uploadVisible={uploadVisible} />
     </>
   );
 }

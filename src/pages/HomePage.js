@@ -37,9 +37,13 @@ function HomePage({ currentUser }) {
                   <Avatar size={80} src={user.profileImage}/>
                   <Title level={5} onClick={()=>history.push(`/users/${user.username}`)}>@{user.username}</Title>
                 </Col>
-                <Col span={20}>
-                  <UserImages userid={user.id} currentUser={currentUser} />
-                </Col>
+                {
+                  currentUser ? 
+                  <Col span={20}>
+                    <UserImages userid={user.id} currentUser={currentUser} />
+                  </Col>
+                  : null
+                }
               </Row>
             </Card>
           )
