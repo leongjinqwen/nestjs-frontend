@@ -4,9 +4,26 @@ import { Row, Image, Card } from 'antd';
 import { LikeOutlined, DeleteOutlined } from '@ant-design/icons';
 
 
-function UserImages ({userid}) {
+function UserImages ({userid, currentUser}) {
   const [images, setImages] = useState([])
-  console.log(userid)
+  
+  const handleDelete = (id) => {
+    axios({
+      method: 'DELETE',
+      url: `http://localhost:5000/api/v1/images/${id}`,
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token")
+      },
+    })
+    .then(result => {
+      console.log(result.data)
+      setImages(images.filter(image=>image._id!==id))
+    })
+    .catch(error => {
+      console.log('ERROR: ', error.response.data)
+    })
+  }
+
   useEffect(() => {
     axios.get(`http://localhost:5000/api/v1/images/${userid}`)
     .then(result => {
@@ -16,19 +33,34 @@ function UserImages ({userid}) {
       console.log('ERROR: ', error)
     })
   }, [])
+
   return (
     <Row>
     {
-      images.map((image,index)=>{
+      images.map((image)=>{
+        if (currentUser.id === image.userId) {
+          return (
+            <Card
+              key={image._id}
+              hoverable
+              style={{ width: 300, margin:5 }}
+              cover={<Image alt={image._id} src={image.imageUrl} />}
+              actions={[
+                <LikeOutlined key="like" />,
+                <DeleteOutlined key="delete" onClick={()=>handleDelete(image._id)} />
+              ]}
+              bodyStyle={{padding:0}}
+            />
+          )
+        }
         return (
           <Card
-            key={index}
+            key={image._id}
             hoverable
             style={{ width: 300, margin:5 }}
             cover={<Image alt={image._id} src={image.imageUrl} />}
             actions={[
               <LikeOutlined key="like" />,
-              <DeleteOutlined key="delete" />,
             ]}
             bodyStyle={{padding:0}}
           />

@@ -15,7 +15,6 @@ function ProfilePage({currentUser}) {
   useEffect(() => {
     axios.get(`http://localhost:5000/api/v1/users/${params.username}`)
     .then(result => {
-      console.log(result.data)
       setUser(result.data)
     })
     .catch(error => {
@@ -42,7 +41,7 @@ function ProfilePage({currentUser}) {
                 <Button shape="circle" type="ghost" icon={<EditOutlined />} style={{verticalAlign:'middle', margin:'0 5px'}} />
                 {/* click to show edit modal */}
               </Title>
-              <UserImages userid={user.id} />
+              <UserImages userid={user.id} currentUser={currentUser}/>
             </>
             :
             null

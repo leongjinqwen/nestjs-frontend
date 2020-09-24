@@ -21,7 +21,7 @@ function App() {
         <Content className="site-layout-background" style={{ margin: '24px 0', minHeight: '100vh'}}>
           <Switch>
             <Route path="/" exact>
-              <HomePage />
+              <HomePage currentUser={currentUser} />
             </Route>
             <Route path="/users/:username" component={() => <ProfilePage currentUser={currentUser} />} />
             <Route path="/upload" component={() => <UploadPage />} />

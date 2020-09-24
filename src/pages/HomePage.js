@@ -6,7 +6,7 @@ import UserImages from '../containers/UserImages';
 
 const { Title } = Typography;
 
-function HomePage() {
+function HomePage({ currentUser }) {
   const history = useHistory()
 
   const [users, setUsers] = useState([])
@@ -38,7 +38,7 @@ function HomePage() {
                   <Title level={5} onClick={()=>history.push(`/users/${user.username}`)}>@{user.username}</Title>
                 </Col>
                 <Col span={20}>
-                  <UserImages userid={user.id} />
+                  <UserImages userid={user.id} currentUser={currentUser} />
                 </Col>
               </Row>
             </Card>
