@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom';
-import { Card, Avatar } from 'antd';
+import { Card, Avatar, Row, Col, Typography } from 'antd';
+import UserImages from '../containers/UserImages';
 
-const { Meta } = Card;
+const { Title } = Typography;
 
 function HomePage() {
   const history = useHistory()
@@ -30,12 +31,16 @@ function HomePage() {
               key={index}
               loading={isLoading}
               hoverable='true'
-            >
-              <Meta
-                avatar={<Avatar src={user.profileImage} />}
-                title={user.username}
-                onClick={()=>history.push(`/users/${user.username}`)}
-              />
+            > 
+              <Row>
+                <Col span={4} style={{textAlign:'center'}}>
+                  <Avatar size={80} src={user.profileImage}/>
+                  <Title level={5} onClick={()=>history.push(`/users/${user.username}`)}>@{user.username}</Title>
+                </Col>
+                <Col span={20}>
+                  <UserImages userid={user.id} />
+                </Col>
+              </Row>
             </Card>
           )
         })

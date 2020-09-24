@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
 import { Avatar, Row, Col, Typography, Button } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
 import UploadAvatar from '../components/UploadAvatar';
+import { EditOutlined } from '@ant-design/icons';
+import UserImages from '../containers/UserImages';
 
 const { Title } = Typography;
 
@@ -14,6 +15,7 @@ function ProfilePage({currentUser}) {
   useEffect(() => {
     axios.get(`http://localhost:5000/api/v1/users/${params.username}`)
     .then(result => {
+      console.log(result.data)
       setUser(result.data)
     })
     .catch(error => {
@@ -27,19 +29,20 @@ function ProfilePage({currentUser}) {
           {
             user ? 
             <>
-            <div style={{position:'relative'}}>
-              <Avatar size={128} src={user.profileImage} />
-              {
-                user.id === currentUser.id ?
-                <UploadAvatar />
-                : null
-              }
-            </div>
-            <Title level={2}>
-              @{user.username} 
-              <Button shape="circle" type="ghost" icon={<EditOutlined />} style={{verticalAlign:'middle', margin:'0 5px'}} />
-              {/* click to show edit modal */}
-            </Title>
+              <div style={{position:'relative'}}>
+                <Avatar size={128} src={user.profileImage} />
+                {
+                  user.id === currentUser.id ?
+                  <UploadAvatar />
+                  : null
+                }
+              </div>
+              <Title level={2}>
+                @{user.username} 
+                <Button shape="circle" type="ghost" icon={<EditOutlined />} style={{verticalAlign:'middle', margin:'0 5px'}} />
+                {/* click to show edit modal */}
+              </Title>
+              <UserImages userid={user.id} />
             </>
             :
             null

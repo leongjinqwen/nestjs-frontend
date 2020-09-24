@@ -5,7 +5,7 @@ import { UploadOutlined } from '@ant-design/icons';
 function UploadAvatar () {
   const props = {
     name: 'file',
-    action: 'http://localhost:5000/api/v1/users/upload', 
+    action: 'http://localhost:5000/api/v1/users/upload',  // endpoint to uplaod profile image
     headers: {
       authorization: 'Bearer ' + localStorage.getItem('token'),
     },

@@ -5,7 +5,7 @@ import { UploadOutlined } from '@ant-design/icons';
 function UploadPage () {
   const props = {
     name: 'file',
-    action: 'http://localhost:5000/api/v1/users/upload', // pending endpoint to upload user images
+    action: 'http://localhost:5000/api/v1/images/upload', // endpoint to upload user images
     headers: {
       authorization: 'Bearer ' + localStorage.getItem('token'),
     },
