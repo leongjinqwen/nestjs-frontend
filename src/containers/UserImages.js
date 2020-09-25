@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Row, Image, Card } from 'antd';
-import { LikeOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Row } from 'antd';
+import Likes from './Likes';
 
 
 function UserImages ({userid, currentUser}) {
@@ -38,33 +38,7 @@ function UserImages ({userid, currentUser}) {
     <Row>
     {
       images.map((image)=>{
-        if (currentUser.id === image.userId) {
-          return (
-            <Card
-              key={image._id}
-              hoverable
-              style={{ width: 300, margin:5 }}
-              cover={<Image alt={image._id} src={image.imageUrl} />}
-              actions={[
-                <LikeOutlined key="like" />,
-                <DeleteOutlined key="delete" onClick={()=>handleDelete(image._id)} />
-              ]}
-              bodyStyle={{padding:0}}
-            />
-          )
-        }
-        return (
-          <Card
-            key={image._id}
-            hoverable
-            style={{ width: 300, margin:5 }}
-            cover={<Image alt={image._id} src={image.imageUrl} />}
-            actions={[
-              <LikeOutlined key="like" />,
-            ]}
-            bodyStyle={{padding:0}}
-          />
-        )
+        return <Likes key={image._id} image={image} currentUser={currentUser} handleDelete={handleDelete} />
       })
     }
   </Row>
