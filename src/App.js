@@ -12,7 +12,12 @@ function App() {
 
   return (
     <Layout>
-      <Sider width={200} className="site-layout-background">
+      <Sider 
+        breakpoint="lg"
+        collapsedWidth="0"
+        width={180} 
+        className="site-layout-background"
+      >
         <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       </Sider>
       <Layout style={{ padding: '0 24px' }}>

@@ -34,13 +34,13 @@ function HomePage({ currentUser }) {
               hoverable='true'
             > 
               <Row>
-                <Col span={4} style={{textAlign:'center'}}>
+                <Col sm={24} md={4} style={{textAlign:'center'}}>
                   <Avatar size={80} src={user.profileImage}/>
                   <Title level={5} onClick={()=>history.push(`/users/${user.username}`)}>@{user.username}</Title>
                 </Col>
                 {
                   currentUser ? 
-                  <Col span={20}>
+                  <Col sm={24} md={20} >
                     <UserImages userid={user.id} currentUser={currentUser} />
                   </Col>
                   : null
