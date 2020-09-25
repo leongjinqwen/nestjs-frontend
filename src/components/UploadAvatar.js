@@ -1,11 +1,12 @@
 import React from 'react'
 import { Upload, message, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { PORT } from '../configuration';
 
 function UploadAvatar () {
   const props = {
     name: 'file',
-    action: 'http://localhost:5000/api/v1/users/upload',  // endpoint to uplaod profile image
+    action: `${PORT}/api/v1/users/upload`,  // endpoint to uplaod profile image
     headers: {
       authorization: 'Bearer ' + localStorage.getItem('token'),
     },

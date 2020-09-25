@@ -2,9 +2,10 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
 import { Avatar, Row, Col, Typography, Button } from 'antd';
-import UploadAvatar from '../components/UploadAvatar';
 import { EditOutlined } from '@ant-design/icons';
+import UploadAvatar from '../components/UploadAvatar';
 import UserImages from '../containers/UserImages';
+import { PORT } from '../configuration';
 
 const { Title } = Typography;
 
@@ -13,7 +14,7 @@ function ProfilePage({currentUser}) {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/v1/users/${params.username}`)
+    axios.get(`${PORT}/api/v1/users/${params.username}`)
     .then(result => {
       setUser(result.data)
     })

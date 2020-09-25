@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useHistory } from 'react-router-dom';
 import { Card, Avatar, Row, Col, Typography } from 'antd';
 import UserImages from '../containers/UserImages';
+import { PORT } from '../configuration';
 
 const { Title } = Typography;
 
@@ -13,7 +14,7 @@ function HomePage({ currentUser }) {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/v1/users')
+    axios.get(`${PORT}/api/v1/users/`)
     .then(result => {
       setUsers(result.data)
       setIsLoading(!isLoading)

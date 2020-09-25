@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Modal, Button, message } from 'antd';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
+import { PORT } from '../configuration';
 
 function ShowModal({ visible, showModal, setCurrentUser }) {
   const history = useHistory()
@@ -18,7 +19,7 @@ function ShowModal({ visible, showModal, setCurrentUser }) {
       // to sign up
       axios({
         method: 'POST',
-        url: 'http://localhost:5000/api/v1/users/',
+        url: `${PORT}/api/v1/users/`,
         data: {
           username: details.username,
           email: details.email,
@@ -37,7 +38,7 @@ function ShowModal({ visible, showModal, setCurrentUser }) {
       // to sign in
       axios({
         method: 'POST',
-        url: 'http://localhost:5000/api/v1/auth/login',
+        url: `${PORT}/api/v1/auth/login`,
         data: {
           username: details.username,
           password: details.password

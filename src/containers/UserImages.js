@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Row } from 'antd';
 import Likes from './Likes';
+import { PORT } from '../configuration';
 
 
 function UserImages ({userid, currentUser}) {
@@ -10,7 +11,7 @@ function UserImages ({userid, currentUser}) {
   const handleDelete = (id) => {
     axios({
       method: 'DELETE',
-      url: `http://localhost:5000/api/v1/images/${id}`,
+      url: `${PORT}/api/v1/images/${id}`,
       headers: {
         "Authorization": "Bearer " + localStorage.getItem("token")
       },
@@ -25,7 +26,7 @@ function UserImages ({userid, currentUser}) {
   }
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/v1/images/${userid}`)
+    axios.get(`${PORT}/api/v1/images/${userid}`)
     .then(result => {
       setImages(result.data)
     })

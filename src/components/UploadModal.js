@@ -1,11 +1,12 @@
 import React from 'react'
 import { Upload, message, Button, Modal } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { PORT } from '../configuration';
 
 function UploadModal ({showUpload,uploadVisible}) {
   const props = {
     name: 'file',
-    action: 'http://localhost:5000/api/v1/images/upload', // endpoint to upload user images
+    action: `${PORT}/api/v1/images/upload`, // endpoint to upload user images
     headers: {
       authorization: 'Bearer ' + localStorage.getItem('token'),
     },

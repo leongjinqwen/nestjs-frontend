@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Image, Card, Badge } from 'antd';
 import { LikeFilled, LikeOutlined, DeleteOutlined } from '@ant-design/icons';
+import { PORT } from '../configuration';
 
 
 function Likes ({image, currentUser, handleDelete}) {
@@ -11,7 +12,7 @@ function Likes ({image, currentUser, handleDelete}) {
   useEffect(() => {
     axios({
       method: 'GET',
-      url: `http://localhost:5000/api/v1/images/${image._id}/likes`,
+      url: `${PORT}/api/v1/images/${image._id}/likes`,
       headers: {
         "Authorization": "Bearer " + localStorage.getItem("token")
       },
@@ -28,7 +29,7 @@ function Likes ({image, currentUser, handleDelete}) {
   const handleLike = (id) => {
     axios({
       method: 'POST',
-      url: `http://localhost:5000/api/v1/images/${id}/toggle_like`,
+      url: `${PORT}/api/v1/images/${id}/toggle_like`,
       headers: {
         "Authorization": "Bearer " + localStorage.getItem("token")
       },
